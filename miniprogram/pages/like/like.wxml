@@ -1,0 +1,5 @@
+<scroll-view class='imageBox' scroll-x='true' scroll-left='0' scroll-into-view='{{id}}'>
+  <block wx:for='{{images}}' wx:key='{{_id}}'>
+    <image mode='aspectFill' class='image' src='{{item.image}}'></image>
+  </block>
+</scroll-view>

@@ -1,0 +1,45 @@
+.imageBox{
+  margin:10rpx;
+}
+image{
+  width:100%;
+}
+.a{
+  position: relative;
+}
+.icon_like{
+  position: absolute;
+  top:45%;
+  right: 30rpx;
+}
+.icon_share{
+  position: absolute;
+  top:55%;
+  right: 30rpx;
+}
+.icon_button{
+  position: absolute;
+  top:55%;
+  right: 30rpx;
+  z-index: 1;
+  opacity: 0;
+}
+.authorization{
+  width: 300rpx;
+}
+.tankuang{
+  
+  position: fixed;
+  z-index: 2;
+  top: 0;
+}
+.dakuang{
+  
+  position: fixed;
+  z-index: 1;
+  width: 750rpx;
+  height:1200rpx;
+  top: 0;
+  background: black;
+  opacity: 0.5;
+}

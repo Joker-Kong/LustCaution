@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/like/like",
+    "pages/user/user"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "色戒",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/主页.png",
+        "selectedIconPath": "images/主页_1.png",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "images/个人.png",
+        "selectedIconPath":"images/个人_1.png",
+        "text": "个人"
+      }
+    ]
+  }
+}

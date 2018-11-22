@@ -1,0 +1,26 @@
+<view>
+  <view class="avatarBox">
+    <image class='avatar' src='{{avatarUrl}}'> </image>
+    <view wx:if='{{isRecord}}'>
+      <text>{{nickName}}</text>
+    </view>
+    <view wx:else>
+      <van-button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo" round type="default">你瞅啥</van-button>
+    </view>
+  </view>
+  <view>
+    <view wx:if='{{admin == "oCcJo5Nn0BoF5TdC-KkgJyJc-mIa"}}'>
+      <button bindtap='upLoad'>上传图片</button>
+    </view>
+    <view>
+      <text>我的收藏</text>
+    </view>
+    <view class='imageBox'>
+      <block wx:for='{{images}}' wx:key='{{_id}}'>
+        <!-- <navigator url="../photo/photo?openId={{item._openid}}"> -->
+        <image class='image' src='{{item.image}}'></image>
+        <!-- </navigator> -->
+      </block>
+    </view>
+  </view>
+</view>
