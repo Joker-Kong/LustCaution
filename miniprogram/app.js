@@ -9,10 +9,10 @@ App({
     wx.cloud.callFunction({
       name: 'login',
       success: res => {
-        
-        this.globalData.openId = res.result.userInfo.openId
+        this.globalData.openid = res.result.userInfo.openId
       }
     })
+
   }
   
 })

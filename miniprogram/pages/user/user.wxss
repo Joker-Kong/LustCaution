@@ -13,7 +13,7 @@ text{
 }
 .image{
   width: 230rpx;
-  height: 270rpx;
+  height: 250rpx;
   margin-top: 20rpx;
   margin-left: 10rpx;
   margin-right: 10rpx;

@@ -29,7 +29,7 @@ Page({
           isRecord: true,
           avatarUrl: res.data[0].userInfo.avatarUrl,
           nickName: res.data[0].userInfo.nickName,
-          admin: app.globalData.userInfo.openId
+          admin: app.globalData.openid
         })
       } else {
         this.setData({

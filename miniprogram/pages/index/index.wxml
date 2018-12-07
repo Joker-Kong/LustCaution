@@ -7,16 +7,19 @@
 
 <block wx:for='{{images}}' wx:key='{{_id}}'>
   <view class='a'>
+
     <view class='iamgeBox'>
       <image mode='widthFix' src='{{item.image}}'></image>
     </view>
 
     <view>
-      <van-icon class="icon_like" id='{{index}}' data-image='{{item.image}}' name="like" size='30px' color='{{item.like_color}}' bind:click="onLike" />
+      <van-icon class="icon_like" id='{{index}}' data-likeId='{{item.like_id}}' data-image='{{item.image}}' data-color='{{item.like_color}}' name="like" size='30px' color='{{item.like_color}}' bind:click="onLike" />
     </view>
+
     <view>
       <button data-image='{{item.image}}' class="icon_button" size='mini' open-type='share'>分享</button>
       <van-icon id='{{item.imageId}}' name="share" class="icon_share" size='30px' color='#ffffff' />
     </view>
+
   </view>
 </block>

@@ -3,106 +3,84 @@ const photos = db.collection('photos')
 const collection = db.collection('collection')
 var app = getApp();
 Page({
-  data: {
-    images: [],
-  },
-  onLoad: function() {
 
-    photos.get().then(res => {
-      console.log('公库')
-      console.log(res.data)
-      collection.where({
-        openId: app.globalData.openId
-      }).get().then(res1 => {
-        console.log('含有收藏')
-        console.log(res1.data)
-        var photos = []
-        if (res1.data.length == 0) {
-          this.setData({
-            images: res.data
-          })
-         
-        } else {
-          for (var i = 0; i < res1.data.length; i++) {
-            for (var j = 0; j < res.data.length; j++) {
-              console.log('公库的每张照片')
-              console.log(res.data)
-              if (res.data[j].image != res1.data[i].image) {
-                photos.push(res.data[j])
-              }
+  data: {
+  },
+
+  onLoad: function() {
+    this.loadImages();
+  },
+
+  /**
+   * 加载首页图片
+   */
+  loadImages: function() {
+    collection.where({
+      openid: app.globalData.openId
+    }).get().then(res1 => {
+      photos.get().then(res2 => {
+
+        for (var i = 0; i < res1.data.length; i++) {
+          for (var j = 0; j < res2.data.length; j++) {
+            if (res1.data[i].image == res2.data[j].image) {
+              res2.data[j].like_color = 'red'
+              res2.data[j].like_id = res1.data[i]._id
             }
-            console.log('筛选出合格的照片')
-            console.log(photos)
-            this.setData({
-              images: photos
-            })
           }
         }
+        this.setData({
+          images: res2.data
+        })
 
-        // photos = []
       })
-      // this.setData({
-      //   images: res.data
-      // })
     })
   },
+  /**
+   * 收藏
+   */
   onLike: function(event) {
+    console.log(event.target.dataset.likeid)
     var str = "images[" + event.target.id + "].like_color"
-
-    //判断是否收藏
-    collection.where({
-      image: event.target.dataset.image,
-      openId: app.globalData.openId
-    }).count().then(res => {
-      if (res.total > 0) {
-        //删除收藏
-        collection.where({
-          image: event.target.dataset.image,
-          openId: app.globalData.openId
-        }).field({
-          _id: true
-        }).get().then(res1 => {
-          for (var i = 0; i < res1.data.length; i++) {
-            collection.doc(res1.data[i]._id).remove()
-              .then(res2 => {
-                this.setData({
-                  [str]: 'white'
-                })
-                wx.showToast({
-                  title: '取消收藏'
-                })
-              })
-          }
-        }).catch(console.error())
-      } else {
-        //添加收藏
-        collection.add({
+    var likeId = "images[" + event.target.id + "].like_id"
+    if (event.target.dataset.color == 'red') {
+      collection.doc(event.target.dataset.likeid).remove().then(res2 => {
+        this.setData({
+          [str]: 'white'
+        })
+        wx.showToast({
+          title: '取消收藏'
+        })
+      })
+    } else {
+      collection.add({
           data: {
-            image: event.target.dataset.image,
-            openId: app.globalData.openId
+            image: event.target.dataset.image
           }
         }).then(res => {
           this.setData({
+            [likeId]:res._id,
             [str]: 'red'
           })
           wx.showToast({
             title: '收藏成功',
           })
         }).catch(console.error())
-      }
-    })
-
+    }
   },
   onShareAppMessage: function(event) {
     if (event.from === 'button') {
       // 来自页面内转发按钮
-      var image = event.target.dataset.image
-      console.log(image)
       return {
         title: '性感美女',
-        path: '/pages/index/index?' + image
+        path: '/pages/index/index?image'+image
       }
     }
-
+  },
+  /**
+   * 上来刷新
+   */
+  onReachBottom:function(){
+    console.log(123)
+    this.loadImages();
   }
 })
